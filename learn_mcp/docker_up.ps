@@ -1,0 +1,5 @@
+docker run -d --name ollama `
+    -v ollama-data:/root/.ollama `
+    -p 11434:11434 `
+    ollama/ollama
+docker exec ollama ollama pull llama3

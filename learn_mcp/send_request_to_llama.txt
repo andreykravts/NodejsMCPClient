@@ -1,0 +1,11 @@
+
+curl http://localhost:11434/api/generate -d '{
+  "model": "llama3",
+  "prompt": "What is the capital of France?",
+  "stream": false
+}'
+
+{
+  "response": "The capital of France is Paris.",
+  ...
+}

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Node.js MCP Client</title>
+</head>
+
+<body>
+    <select id="model">
+        <option value="gemini">Gemini</option>
+        <option value="llama">LLaMA (Local)</option>
+        <option value="openai">OpenAI</option>
+    </select>
+
+    <input type="text" id="city" value="Phantasia" />
+
+    <textarea id="question">What events are happening?</textarea>
+
+    <button onclick="askAI()">Send</button>
+
+    <div id="response"></div>
+
+    <script>
+        async function askAI() {
+            const model = document.getElementById('model').value;
+            const city = document.getElementById('city').value;
+            const question = document.getElementById('question').value;
+
+            document.getElementById('response').innerText = "Loading...";
+
+            try {
+                const res = await fetch(`/ask/${model}`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ city, question }),
+                });
+
+                const data = await res.json();
+                document.getElementById('response').innerText = data.answer || data.error;
+            } catch (err) {
+                document.getElementById('response').innerText = "Error: " + err.message;
+            }
+        }
+    </script>
+</body>
+
+</html>
